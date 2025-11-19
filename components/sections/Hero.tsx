@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowDown, Smartphone, Monitor, Database, Globe, Cpu, Server, Layout, Code } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const [orbitDirection, setOrbitDirection] = useState<'normal' | 'reverse'>('normal');
@@ -8,16 +8,77 @@ export const Hero: React.FC = () => {
     setOrbitDirection(prev => prev === 'normal' ? 'reverse' : 'normal');
   };
 
-  // Tech stack icons to orbit
+  // Custom SVG Icons for the requested stack
   const orbitIcons = [
-    { icon: <Monitor size={20} />, color: "text-blue-400" },
-    { icon: <Server size={20} />, color: "text-green-400" },
-    { icon: <Smartphone size={20} />, color: "text-purple-400" },
-    { icon: <Database size={20} />, color: "text-yellow-400" },
-    { icon: <Cpu size={20} />, color: "text-red-400" },
-    { icon: <Code size={20} />, color: "text-cyan-400" },
-    { icon: <Globe size={20} />, color: "text-indigo-400" },
-    { icon: <Layout size={20} />, color: "text-pink-400" },
+    { 
+      name: "HTML", 
+      color: "text-orange-500", 
+      bg: "bg-orange-500/10 border-orange-500/20",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+          <path d="M2 2h20l-2 16-8 3-8-3L2 2z" />
+          <path d="M12 18v-11" />
+          <path d="M12 18l-4.5-1.5" />
+          <path d="M12 7h5.5" />
+        </svg>
+      )
+    },
+    { 
+      name: "Node.js", 
+      color: "text-green-500", 
+      bg: "bg-green-500/10 border-green-500/20",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+          <path d="M12 2l9 4.5v9l-9 4.5-9-4.5v-9z" />
+          <path d="M12 12v9" />
+          <path d="M12 12l9-4.5" />
+          <path d="M12 12l-9-4.5" />
+        </svg>
+      )
+    },
+    { 
+      name: "Express", 
+      color: "text-gray-200", 
+      bg: "bg-white/5 border-white/10",
+      icon: (
+        <div className="font-bold text-[10px] tracking-tighter border border-current px-1 rounded">EX</div>
+      )
+    },
+    { 
+      name: "React", 
+      color: "text-cyan-400", 
+      bg: "bg-cyan-500/10 border-cyan-500/20",
+      icon: (
+        <svg viewBox="-10.5 -9.45 21 18.9" fill="none" stroke="currentColor" strokeWidth="1" className="w-full h-full scale-125">
+          <circle cx="0" cy="0" r="2" fill="currentColor" />
+          <g stroke="currentColor" strokeWidth="1" fill="none">
+            <ellipse rx="10" ry="4.5" />
+            <ellipse rx="10" ry="4.5" transform="rotate(60)" />
+            <ellipse rx="10" ry="4.5" transform="rotate(120)" />
+          </g>
+        </svg>
+      )
+    },
+    { 
+      name: "React Native", 
+      color: "text-purple-400", 
+      bg: "bg-purple-500/10 border-purple-500/20",
+      icon: (
+        <div className="relative w-full h-full flex items-center justify-center">
+             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute inset-0 w-full h-full opacity-50">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+             </svg>
+             <svg viewBox="-10.5 -9.45 21 18.9" fill="none" stroke="currentColor" strokeWidth="1" className="w-4 h-4 animate-spin-slow" style={{animationDuration: '10s'}}>
+                <circle cx="0" cy="0" r="2" fill="currentColor" />
+                <g stroke="currentColor" strokeWidth="1" fill="none">
+                    <ellipse rx="10" ry="4.5" />
+                    <ellipse rx="10" ry="4.5" transform="rotate(60)" />
+                    <ellipse rx="10" ry="4.5" transform="rotate(120)" />
+                </g>
+            </svg>
+        </div>
+      )
+    },
   ];
 
   return (
@@ -40,7 +101,9 @@ export const Hero: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                </div>
-               <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-xs font-mono text-blue-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+               
+               {/* Click instruction tooltip */}
+               <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 text-xs font-mono text-blue-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1 rounded-full bg-black/80 border border-blue-500/30">
                   Click to reverse orbit
                </div>
            </div>
@@ -50,24 +113,37 @@ export const Hero: React.FC = () => {
               className={`absolute w-[340px] h-[340px] md:w-[480px] md:h-[480px] border border-white/5 rounded-full ${orbitDirection === 'normal' ? 'animate-spin-slow' : 'animate-spin-reverse-slow'} transition-all duration-1000`}
            >
               {/* Orbiting Icons */}
-              {orbitIcons.map((item, index) => (
-                <div
-                  key={index}
-                  className="absolute top-0 left-1/2 -ml-6 -mt-6 w-12 h-12 md:w-14 md:h-14"
-                  style={{
-                    // This creates the circular positioning
-                    transform: `rotate(${index * 45}deg) translateY(-170px) rotate(-${index * 45}deg)`
-                  }}
-                >
-                   {/* Desktop offset override logic via generic CSS calc would be ideal, but hardcoded values for responsive demo work best */}
-                    {/* Counter-rotate the icon so it stays upright while the parent spins */}
-                    <div 
-                      className={`w-full h-full rounded-full bg-[#0a0a0a]/80 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.05)] ${item.color} hover:scale-125 transition-transform duration-300 ${orbitDirection === 'normal' ? 'animate-spin-reverse-slow' : 'animate-spin-slow'}`}
+              {orbitIcons.map((item, index) => {
+                // Calculate position
+                const totalItems = orbitIcons.length;
+                const angle = (index * 360) / totalItems;
+                const radius = 170; // Distance from center (px) - adjust for responsiveness if needed in CSS
+
+                return (
+                    <div
+                    key={index}
+                    className="absolute top-1/2 left-1/2 -ml-7 -mt-7 w-14 h-14"
+                    style={{
+                        // Use rotation to place items on the circle
+                        transform: `rotate(${angle}deg) translateY(-${radius}px) rotate(-${angle}deg)`
+                    }}
                     >
-                        {item.icon}
+                        {/* Icon Container - Counter rotates to stay upright */}
+                        <div 
+                            className={`w-full h-full rounded-full backdrop-blur-md flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] border ${item.bg} ${item.color} hover:scale-125 transition-transform duration-300 ${orbitDirection === 'normal' ? 'animate-spin-reverse-slow' : 'animate-spin-slow'} group relative`}
+                        >
+                            <div className="w-8 h-8 flex items-center justify-center">
+                                {item.icon}
+                            </div>
+                            
+                            {/* Tooltip name */}
+                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-black/90 rounded text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none z-50">
+                                {item.name}
+                            </div>
+                        </div>
                     </div>
-                </div>
-              ))}
+                );
+              })}
            </div>
            
            {/* Decorative Outer Rings */}
