@@ -1,0 +1,5 @@
+{
+  "name": "SamPortfolio",
+  "description": "A high-performance, immersive 3D portfolio for a full-stack developer featuring React Three Fiber graphics and a Gemini-powered AI assistant.",
+  "requestFramePermissions": []
+}
